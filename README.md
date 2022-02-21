@@ -7,3 +7,4 @@ NPM packages:
 MySQL2
 Sequelize
 dotenv 
+express
