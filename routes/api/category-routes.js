@@ -1,16 +1,16 @@
-const router = require("express").Router();
-const { Category, Product } = require("../../models");
+const router = require('express').Router();
+const { Category, Product } = require('../../models');
 
 // The `/api/categories` endpoint
 
-router.get("/", (req, res) => {
+router.get('/', (req, res) => {
   // find all categories
   // be sure to include its associated Products
   Category.findAll({
     include: [
       {
         model: Product,
-        attributes: ["product_name"],
+        attributes: ['product_name'],
       },
     ],
   })
@@ -21,7 +21,7 @@ router.get("/", (req, res) => {
     });
 });
 
-router.get("/:id", (req, res) => {
+router.get('/:id', (req, res) => {
   // find one category by its `id` value
   // be sure to include its associated Products
   Category.findOne({
@@ -29,13 +29,13 @@ router.get("/:id", (req, res) => {
     include: [
       {
         model: Product,
-        attributes: ["id", "product_name"],
+        attributes: ['id', 'product_name'],
       },
     ],
   })
     .then((dbCategoryData) => {
       if (!dbCategoryData) {
-        res.status(404).json({ message: "No product found with this id" });
+        res.status(404).json({ message: 'No product found with this id' });
         return;
       }
       res.json(dbCategoryData);
@@ -46,7 +46,7 @@ router.get("/:id", (req, res) => {
     });
 });
 
-router.post("/", (req, res) => {
+router.post('/', (req, res) => {
   // create a new category
   Category.create({
     id: req.body.id,
@@ -59,7 +59,7 @@ router.post("/", (req, res) => {
     });
 });
 
-router.put("/:id", (req, res) => {
+router.put('/:id', (req, res) => {
   // update a category by its `id` value
   Category.update(
     {
@@ -71,7 +71,7 @@ router.put("/:id", (req, res) => {
   )
     .then((dbCategoryData) => {
       if (!dbCategoryData) {
-        res.status(404).json({ message: "No category found with this id" });
+        res.status(404).json({ message: 'No category found with this id' });
         return;
       }
       res.json(dbCategoryData);
@@ -82,7 +82,7 @@ router.put("/:id", (req, res) => {
     });
 });
 
-router.delete("/:id", (req, res) => {
+router.delete('/:id', (req, res) => {
   // delete a category by its `id` value
   Category.destroy({
     where: {
@@ -91,7 +91,7 @@ router.delete("/:id", (req, res) => {
   })
     .then((dbCategoryData) => {
       if (!dbCategoryData) {
-        res.status(404).json({ message: "No category found with this id" });
+        res.status(404).json({ message: 'No category found with this id' });
         return;
       }
       res.json(dbCategoryData);
