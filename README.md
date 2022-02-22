@@ -10,7 +10,7 @@
 
 
   ## Preview
-  ![de-liv-er-able](assets/images/de-liv-er-able.png)
+  ![de-liv-er-able](./assets/images/de-liv-er-able.png)
   See a [walk-through](https://drive.google.com/file/d/1s-GXB09u16nVSydFb9HzEqFWWSLXH0Dj/view) of the application at work!
 
 
