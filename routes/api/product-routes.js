@@ -8,7 +8,7 @@ router.get('/', (req, res) => {
   Product.findAll({
     // find all products
     // be sure to include its associated Category and Tag data
-    attributes: ['id', 'product_name', 'price', 'category_id'],
+    attributes: ['id', 'product_name', 'price', 'stock', 'category_id'],
     include: [
       {
         model: Category,
@@ -25,7 +25,7 @@ router.get('/', (req, res) => {
     .then((dbProductData) => res.json(dbProductData))
     .catch((err) => {
       console.log(err);
-      res.status(500).json(err);
+      res.status(500).json(err.message);
     });
 });
 
@@ -34,7 +34,7 @@ router.get('/:id', (req, res) => {
   // find a single product by its `id`
   // be sure to include its associated Category and Tag data
   Product.findOne({
-    attributes: ['id', 'product_name', 'price', 'category_id'],
+    attributes: ['id', 'product_name', 'price', 'stock', 'category_id'],
     where: { id: req.params.id },
     include: [
       {
@@ -58,7 +58,7 @@ router.get('/:id', (req, res) => {
     })
     .catch((err) => {
       console.log(err);
-      res.status(500).json(err);
+      res.status(500).json(err.message);
     });
 });
 
@@ -95,7 +95,7 @@ router.post('/', (req, res) => {
     .then((productTagIds) => res.status(200).json(productTagIds))
     .catch((err) => {
       console.log(err);
-      res.status(400).json(err);
+      res.status(400).json(err.message);
     });
 });
 
@@ -142,10 +142,11 @@ router.put('/:id', (req, res) => {
         ProductTag.bulkCreate(newProductTags),
       ]);
     })
-    .then((updatedProductTags) => res.json(updatedProductTags))
+    .then((updatedProductTags) => {
+      res.json(updatedProductTags)})
     .catch((err) => {
-      // console.log(err);
-      res.status(400).json(err);
+      console.log(err);
+      res.status(400).json( err.message );
     });
 });
 
@@ -165,7 +166,7 @@ router.delete('/:id', (req, res) => {
     })
     .catch((err) => {
       console.log(err);
-      res.status(500).json(err);
+      res.status(500).json(err.message);
     });
 });
 

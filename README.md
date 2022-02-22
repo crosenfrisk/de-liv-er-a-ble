@@ -4,13 +4,14 @@
   ![License for README](https://img.shields.io/badge/license-MIT-green/)
 
 
+
   ## Description
   de-liv-er-able is a back-end site for an E-Commerce business that works with Express.js and uses Sequelize to interact with a MySQL database. Users can view and update the database by using Insomnia, a RESTful API client.
 
 
   ## Preview
-  ![de-liv-er-able](assets/images/de-liv-er-able.png)
-  See a [walk-through](https://drive.google.com/file/d/1s-GXB09u16nVSydFb9HzEqFWWSLXH0Dj/view) of the application at work!
+  ![de-liv-er-able](./assets/images/de-liv-er-able.png)
+  See a [walk-through](https://drive.google.com/file/d/1aDRAcUkaEZ_QsULohQRVaYsVmYKIOTDk/view) of the application at work!
 
 
   ## Table of Contents
