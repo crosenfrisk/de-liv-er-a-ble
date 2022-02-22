@@ -25,7 +25,7 @@ router.get('/', (req, res) => {
     .then((dbProductData) => res.json(dbProductData))
     .catch((err) => {
       console.log(err);
-      res.status(500).json(err);
+      res.status(500).json(err.message);
     });
 });
 
@@ -58,7 +58,7 @@ router.get('/:id', (req, res) => {
     })
     .catch((err) => {
       console.log(err);
-      res.status(500).json(err);
+      res.status(500).json(err.message);
     });
 });
 
@@ -95,7 +95,7 @@ router.post('/', (req, res) => {
     .then((productTagIds) => res.status(200).json(productTagIds))
     .catch((err) => {
       console.log(err);
-      res.status(400).json(err);
+      res.status(400).json(err.message);
     });
 });
 
@@ -116,12 +116,15 @@ router.put('/:id', (req, res) => {
     }
   )
     .then((product) => {
+      console.log(`ProductTag find all`);
       // find all associated tags from ProductTag
       return ProductTag.findAll({ where: { product_id: req.params.id } });
     })
     .then((productTags) => {
+      console.log(`productTags mapping`);
       // get list of current tag_ids
       const productTagIds = productTags.map(({ tag_id }) => tag_id);
+      console.log(`#2 mapping`);
       // create filtered list of new tag_ids
       const newProductTags = req.body.tagIds
         .filter((tag_id) => !productTagIds.includes(tag_id))
@@ -132,20 +135,24 @@ router.put('/:id', (req, res) => {
           };
         });
       // figure out which ones to remove
+      console.log(`#3 mapping`);
       const productTagsToRemove = productTags
         .filter(({ tag_id }) => !req.body.tagIds.includes(tag_id))
         .map(({ id }) => id);
 
       // run both actions
+      console.log(`#4 mapping`);
       return Promise.all([
         ProductTag.destroy({ where: { id: productTagsToRemove } }),
         ProductTag.bulkCreate(newProductTags),
       ]);
     })
-    .then((updatedProductTags) => res.json(updatedProductTags))
+    .then((updatedProductTags) => {
+      console.log(`update ProductTag find all`);
+      res.json(updatedProductTags)})
     .catch((err) => {
-      // console.log(err);
-      res.status(400).json(err);
+      console.log(err);
+      res.status(400).json( err.message );
     });
 });
 
@@ -165,7 +172,7 @@ router.delete('/:id', (req, res) => {
     })
     .catch((err) => {
       console.log(err);
-      res.status(500).json(err);
+      res.status(500).json(err.message);
     });
 });
 
